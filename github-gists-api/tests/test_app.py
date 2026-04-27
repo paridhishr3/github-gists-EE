@@ -29,7 +29,16 @@ def test_pagination(client):
     # Remove the () after .json
     assert len(response.json) <= 1
 
-def test_caching_headers(client):
-    """Verify the app responds correctly (basic smoke test)."""
-    response = client.get('/octocat')
-    assert response.status_code == 200
+def test_invalid_pagination_type(client):
+    """Ensure non-numeric strings return a 400 error."""
+    response = client.get('/octocat?page=abc')
+    assert response.status_code == 400
+    assert response.json['error'] == "page and per_page must be positive integers"
+
+def test_empty_username(client):
+    """
+    Flask routes usually handle empty paths with 404, 
+    but we test whitespace scenarios if applicable.
+    """
+    response = client.get('/%20') # URL encoded space
+    assert response.status_code == 400
