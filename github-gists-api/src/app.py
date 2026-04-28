@@ -34,10 +34,6 @@ def get_user_gists(username):
     page = int(raw_page)
     per_page = int(raw_per_page)
 
-    # Further guardrails: limit per_page to GitHub's max (100)
-    if per_page > 100:
-        per_page = 100
-
     params = {
         "page": page,
         "per_page": per_page
