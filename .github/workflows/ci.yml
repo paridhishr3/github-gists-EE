@@ -22,4 +22,9 @@ jobs:
       - name: run tests
         run:
             pytest -m tests/
+        working-directory: github-gists-api
+      - name: docker build
+        run:
+            docker build -t github-gists-api .
+        working-directory: github-gists-api
 
