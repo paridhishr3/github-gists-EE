@@ -14,14 +14,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pwd
-          ls
           python -m pip install --upgrade pip
           pip install -r requirements.txt
         working-directory: github-gists-api
       - name: run tests
         run:
-            pytest -m tests/
+            pytest tests/
         working-directory: github-gists-api
       - name: docker build
         run:
